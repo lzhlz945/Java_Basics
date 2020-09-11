@@ -34,16 +34,28 @@ new String("abc");内存中创建了几次对象
          System.out.println(s==s7);
  基本数据传递参数是数值，引用传递的是地址
 
- String: 不可变得字符序列  数组大小是几个就是几个，被final修饰
+ String: 不可变得字符序列  数组大小是几个就是几个，被final修饰是个常量
  StringBuffer:线程安全的，效率低
  StringBuilder:线程不安全的，效率高
  三者都是char[]数组存
  后两个是默认是16大小，当 为new StringBuffer("abc") 起默认大小为3 + 16
  扩容  ensureCapacityInternal(count + len); << 1)+2  扩为原来的2倍加上2
  StringBuffer s=new StringBuffer();
- s.lenght();==0
+     s.lenght();==0
      @Override
      public synchronized int length() {
          return count;   有几个就记录几个
      }
 
+
+ * java.util.date是 * java.util.date的父类
+ * 之间转换
+ * date转换成sql.Date
+ *   java.sql.Date date1=new java.sql.Date(1222222233L);
+ *         Date date2=(Date)date1;
+ * sql.Date转换成Date
+ *  Date date=new Date();
+ *         java.sql.Date d= new java.sql.Date(date.getTime());
+ *         new java.sql.Date() 构造器的参数是毫秒值
+ *         只需要date.getTime();就能转换
+ */
