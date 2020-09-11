@@ -6,3 +6,29 @@ s1==s2 （true）
 4.重新赋值需要创建一个新的内存（不可变性）
 5.当对现有的进行连接操作是也是需要重新赋值
 6.替换也需要重新赋值
+
+String a="abc"; 和 new String（"abc"）的区别
+第一个是在方法区，不变的，new 是在堆区每次new都不一样内存地址
+equals和== 前者是值得比较，后者是地址的比较
+
+面试题：
+new String("abc");内存中创建了几次对象
+2次，一次是堆中，一次是char[]对应的常量池数据:"abc";
+
+ * 字面量 都是放在字符串常量池中只能有一个s==s3 true
+ * s1+"" 想当于new
+ *
+ * 如果调用intern() 返回值就在常量池中
+     String s7 = s4.intern();
+
+  String s="helloworld";
+         String s1="hello";
+         String s2="world";
+         String s4=s1+"world";
+         String s5="hello"+s2;
+         String s6=s1+s2;
+         String s3="hello"+"world";
+         System.out.println(s==s3);
+         System.out.println(s==s4);
+         System.out.println(s==s5);
+         System.out.println(s==s7);
