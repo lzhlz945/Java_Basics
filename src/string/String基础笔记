@@ -1,0 +1,67 @@
+1.String是存放在方法区的，方法区不会存放两个相同的值
+String s1="abc"; String s2="abc"; 在栈区中的s1和s2的地址都是指向同一个方法区的“abc” ,
+s1==s2 （true）
+2.实现了compareble和序列化
+3.字符串常量池不会存储相同的字符串
+4.重新赋值需要创建一个新的内存（不可变性）
+5.当对现有的进行连接操作是也是需要重新赋值
+6.替换也需要重新赋值
+
+String a="abc"; 和 new String（"abc"）的区别
+第一个是在方法区，不变的，new 是在堆区每次new都不一样内存地址
+equals和== 前者是值得比较，后者是地址的比较
+
+面试题：
+new String("abc");内存中创建了几次对象
+2次，一次是堆中，一次是char[]对应的常量池数据:"abc";
+
+ * 字面量 都是放在字符串常量池中只能有一个s==s3 true
+ * s1+"" 想当于new
+ *
+ * 如果调用intern() 返回值就在常量池中
+     String s7 = s4.intern();
+
+  String s="helloworld";
+         String s1="hello";
+         String s2="world";
+         String s4=s1+"world";
+         String s5="hello"+s2;
+         String s6=s1+s2;
+         String s3="hello"+"world";
+         System.out.println(s==s3);
+         System.out.println(s==s4);
+         System.out.println(s==s5);
+         System.out.println(s==s7);
+ 基本数据传递参数是数值，引用传递的是地址
+
+ String: 不可变得字符序列  数组大小是几个就是几个，被final修饰是个常量
+ StringBuffer:线程安全的，效率低
+ StringBuilder:线程不安全的，效率高
+ 三者都是char[]数组存
+ 后两个是默认是16大小，当 为new StringBuffer("abc") 起默认大小为3 + 16
+ 扩容  ensureCapacityInternal(count + len); << 1)+2  扩为原来的2倍加上2
+ StringBuffer s=new StringBuffer();
+     s.lenght();==0
+     @Override
+     public synchronized int length() {
+         return count;   有几个就记录几个
+     }
+
+
+ * java.util.date是 * java.util.date的父类
+ * 之间转换
+ * date转换成sql.Date
+ *   java.sql.Date date1=new java.sql.Date(1222222233L);
+ *         Date date2=(Date)date1;
+ * sql.Date转换成Date
+ *  Date date=new Date();
+ *         java.sql.Date d= new java.sql.Date(date.getTime());
+ *         new java.sql.Date() 构造器的参数是毫秒值
+ *         只需要date.getTime();就能转换
+ */
+什么是抽象方法
+1、抽象方法不能实例化对象
+2、抽象类中不一定包含抽象方法，但含有抽象方法的类一定是抽象类
+3、抽象类中的方法只有方法的申明
+4、构造器和被static修饰的类方法不能作为抽象方法
+5、抽象类的实现类必须实现抽象方法，否则也必须是申明为抽象类
