@@ -1,0 +1,1 @@
+1、向Collection中添加数据obj时，不许要实现equals()方法
