@@ -3,3 +3,55 @@
 建议：定义一组常量时；
 若枚举类只有一个对象作为单例模式使用
 利用enum常量创建
+创建方式：
+1、
+class Session{
+    private  final String name;
+    private  final String  desc;
+
+    private Session(String name,String desc) {
+        this.name=name;
+        this.desc = desc;
+    }
+    public static final Session SPRING=new Session("春天","春暖花开");
+    public static final Session SUMMER=new Session("春天","春暖花开");
+    public static final Session AUTUMN=new Session("春天","春暖花开");
+    public static final Session WINTER=new Session("春天","春暖花开");
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    @Override
+    public String toString() {
+        return "Session{" +
+                "name='" + name + '\'' +
+                ", desc='" + desc + '\'' +
+                '}';
+    }
+之前的创建方式 构造器私有化，成员变量被private final修饰只有get()方法；
+实例化对象在类中被public static final 修饰
+
+2、
+enum xxx{
+SPRING("春天","春暖花开"),
+      SUMMER("夏天","春暖花开"),
+      AUTUMN("秋天","春暖花开"),
+      WINTER("冬天","春暖花开");
+     private  final String name;
+     private  final String  desc;
+//
+    private Session1(String name,String desc) {
+        this.name=name;
+        this.desc = desc;
+    }
+}
+第二种定义这个类是枚举的 他的父类就是Enum
+不需要再写toSting() ，再类中
+public static final Session SPRING=new Session("春天","春暖花开");
+SUMMER("夏天","春暖花开"),
+切写在类的开始以“，”间隔，以“；”分开;
