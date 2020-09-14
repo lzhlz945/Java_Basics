@@ -55,3 +55,10 @@ SPRING("春天","春暖花开"),
 public static final Session SPRING=new Session("春天","春暖花开");
 SUMMER("夏天","春暖花开"),
 切写在类的开始以“，”间隔，以“；”分开;
+
+Enum属性
+values():
+列举所有常量名称
+1、toString():
+2、values()：返回Enum的所有对象
+3、valueOf(String name)：返回对象名是name的枚举对象；

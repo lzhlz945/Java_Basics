@@ -7,7 +7,27 @@ public class Test02 {
         System.out.println(spring);
         //Enum是其父类
         System.out.println(spring.getClass().getSuperclass());
+        System.out.println("***************************");
+        Session1[] values = Session1.values();
+        for (Session1 value : values) {
+            System.out.println(value);
+        }
+        /**
+         * NEW
+         * RUNNABLE
+         * BLOCKED
+         * WAITING
+         * TIMED_WAITING
+         * TERMINATED
+         */
+        Thread.State[] values1 = Thread.State.values();
+        for (Thread.State state : values1) {
+            System.out.println(state);
+        }
+        Session1 spring1 = Session1.valueOf("SPRING");
+        System.out.println(spring1);
     }
+
 }
 enum Session1{
       SPRING("春天","春暖花开"),
