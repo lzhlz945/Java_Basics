@@ -1,0 +1,7 @@
+1、向Collection中添加数据obj时，不许要实现equals()方法
+2、集合和数组互转
+   集合转数组用toArray(); 反之 Arrays.asList(new String[]{xx,xx,xx})
+   asList() 是Arrays的静态方法； 注意：当数组转换为集合时，类型要为包装类型，不然会看作整体
+3、迭代器
+  next()、hasNext()、
+  next()：1、指针下移 2、下移后把元素返回
