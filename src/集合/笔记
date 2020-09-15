@@ -5,3 +5,22 @@
 3、迭代器
   next()、hasNext()、
   next()：1、指针下移 2、下移后把元素返回
+4、List
+ArrayList：线程不安全 ，底层使用Object[]数组
+LinkedList：对于频繁删除和插入比ArrayList效率高，底层使用双向链表
+victor:线程安全，底层使用Object[]数组
+
+ArrayList底层
+扩容：
+
+list.add(123) elementData[0]=new Integer(123);
+jdk 1.7中
+如果此次的添加导致底层elementDate数组容量不够则扩容
+默认情况下，扩容为原来的容量的1.5倍，同时需要将原有数组中的数据复制到新的数组
+
+jdk 1.8中
+
+object[] elementData初始化为{} 并没有在构造器中创建默认为10
+使用add();时才创建长度为10 的数组
+
+特点：1.7中创建类似于单例模式的饿汉式，1.8相当于懒汉式；延迟了数组的创建，节省内存
