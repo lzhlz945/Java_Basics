@@ -24,3 +24,7 @@ object[] elementData初始化为{} 并没有在构造器中创建默认为10
 使用add();时才创建长度为10 的数组
 
 特点：1.7中创建类似于单例模式的饿汉式，1.8相当于懒汉式；延迟了数组的创建，节省内存
+
+LinkedList 底层分析
+   LinkedList linkedList=new LinkedList();内部申明了first和last属性，默认值为null
+   当执行add(123)操作时将123封装到Node中，创建了Node对象
