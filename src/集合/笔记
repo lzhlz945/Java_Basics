@@ -28,3 +28,32 @@ object[] elementData初始化为{} 并没有在构造器中创建默认为10
 LinkedList 底层分析
    LinkedList linkedList=new LinkedList();内部申明了first和last属性，默认值为null
    当执行add(123)操作时将123封装到Node中，创建了Node对象
+
+
+   HashSet:数组加链表
+1、存储无序的，不可重复的；
+2、无序性，不等于随机性，是根据hash值
+3、无序性是先根基hash值判断位置，并比较是否相同，
+如果相同，根据调用equals来判断，返回true添加失败，否者添加成功；
+
+无序和不可重复底层：
+ 我们向set中添加元素a，首先调用hashCode()方法，计算出其哈希值，通过这个hash值计算出此元素
+ 在数组中的位置（即是索引值）；再在该位置判断此位置的元素情况
+ 情况1：此位置没有元素，添加成功；
+ 情况2：如果此位置上有元素或以链表的形式存放多个元素，则比较两个元素的hash值
+    1、如果hash值不同，添加成功
+    2、如果相同，进而进行equals方法进行调用
+    equals返回true（失败）
+
+    jdk1.7和1.8 总结 七上八下
+    注意：向set添加的元素所在类，必须重写hashCode和equals方法
+    且重写hashCode和equals方法保持一致，
+
+LinkedHashSet(存储顺序)
+
+在添加数据的同时，每个数据还维护了2个引用，记录此数据前一个柜员后一个数据
+LinkedHashSet遍历效率高于HashSet,
+
+TreeSet（默认从小到大排序）必须实现comparable接口
+1、不能添加不同类的对象
+2、再次添加判断形同是根据排序的属性来判断

@@ -14,12 +14,12 @@ public class Test01 {
         Collection c1=new ArrayList();
         ((ArrayList) c1).add(123);
         System.out.println(c1.contains(123));
-        ((ArrayList) c1).add(new Persion("zs"));
+        ((ArrayList) c1).add(new Person("zs",12));
         ((ArrayList) c1).add(new String("tt"));
 ;
         c1.contains(new String("tt"));
-        System.out.println(c1.contains(new Persion("zs")));
-        //Persion 类没有写equals方法就是false
+        System.out.println(c1.contains(new Person("zs",22)));
+        //Person 类没有写equals方法就是false
 
     }
 }

@@ -16,7 +16,7 @@ public class Test02 {
         Collection c1=new ArrayList();
         ((ArrayList) c1).add(123);
         System.out.println(c1.contains(123));
-        ((ArrayList) c1).add(new Persion("zs"));
+        ((ArrayList) c1).add(new Person("zs",22));
         ((ArrayList) c1).add(new String("tt"));
 
         //1、hashCode返回
