@@ -51,9 +51,42 @@ LinkedList 底层分析
 
 LinkedHashSet(存储顺序)
 
-在添加数据的同时，每个数据还维护了2个引用，记录此数据前一个柜员后一个数据
+在添加数据的同时，每个数据还维护了2个引用，记录此数据前一个，后一个数据
 LinkedHashSet遍历效率高于HashSet,
 
 TreeSet（默认从小到大排序）必须实现comparable接口
 1、不能添加不同类的对象
 2、再次添加判断形同是根据排序的属性来判断
+
+Map: key所在的类必须重写hashCode和equals方法，key不可重复  new默认是16的一维数组entry[] table
+     value只需要重写equals即可
+HashMap:线程不安全,可以存储k null  v null
+        实现类 LinkedHashMap
+               在原有的HashMap基础上，添加了一对指针，指向前一个和后一个指针
+               遍历操作效率高
+
+TreeMap:底层红黑树
+        HashTable:线程安全的，不能存储 null
+        实现类 properties：
+
+
+map.put(k,v)实现原理 jdk1.7
+首先根据hashCode()计算出k的hash值，在根据hash值根据某种算法计算出在entry[]中的存放位子
+此位置为空添加成功
+如果存在比较k与其中一个或多个k1的hash值：
+    情况1、如果hash值不同，添加成功；
+    情况2、相同比较调用equals方法比较；
+          1、如果equals为false，添加成功；
+          2、如果equals为true。替换之前的v；
+
+          在添加时扩容为原来的2 倍，并复制过来；
+
+map.put(k,v)实现原理 jdk1.8
+1.在1.8中new hashMap(); 没有创建默认为16的数组，调用才开始创建
+2.数组是Node[],而不是entry[];
+3.1.8多了一个红黑树
+  当链表长度超过8时，且整个数组超过64时，数据改为红黑树
+  超过12开始扩容
+  临界值：超过12时扩容，但是计算出的位置是null就不会扩容
+
+  遍历：keySet() \ entrySet()  collection values=map.values();
