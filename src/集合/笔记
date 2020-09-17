@@ -90,3 +90,11 @@ map.put(k,v)实现原理 jdk1.8
   临界值：超过12时扩容，但是计算出的位置是null就不会扩容
 
   遍历：keySet() \ entrySet()  collection values=map.values();
+
+properties：
+  读取配置文件内容 ，per.load(fis);
+  或者ResourceBundle读取；
+  格式：name=xx
+
+
+Collections工具类：

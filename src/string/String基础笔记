@@ -48,7 +48,7 @@ new String("abc");内存中创建了几次对象
      }
 
 
- * java.util.date是 * java.util.date的父类
+ * java.util.date是 * java.sql.date的父类
  * 之间转换
  * date转换成sql.Date
  *   java.sql.Date date1=new java.sql.Date(1222222233L);
