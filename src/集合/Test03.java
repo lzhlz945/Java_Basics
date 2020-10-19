@@ -28,6 +28,12 @@ public class Test03 {
             Object next = iterator1.next();
             System.out.println(next);
         }
+        System.out.println(c1.size());
+        System.out.println("*****************************");
+        for (Iterator iterator1 = c1.iterator(); iterator1.hasNext(); ) {
+            Object next = iterator1.next();
+            System.out.println(next);
+        }
 
     }
 }
