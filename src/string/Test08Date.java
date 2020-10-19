@@ -16,6 +16,10 @@ public class Test08Date {
         System.out.println(instance.getClass());
         Calendar c=new GregorianCalendar();
         int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
+        int i = instance.get(Calendar.DAY_OF_MONTH);
+        Calendar instance1 = Calendar.getInstance();
+        Class<? extends Calendar> aClass = instance1.getClass();
+
         System.out.println(dayOfMonth);
         int value = 22;
         c.set(Calendar.DAY_OF_MONTH, value);
