@@ -3,6 +3,7 @@ package io流;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 
 public class TestIo {
     /**
@@ -52,5 +53,37 @@ public class TestIo {
 
         boolean b = file3.renameTo(file4);
         System.out.println(b);
+    }
+
+    @Test
+    public void test03() throws IOException {
+        //文件夹和文件的创建
+        File file = new File("E:\\io\\file2.txt");
+        if(!file.exists()){
+            file.createNewFile();
+            System.out.println("文件创建成功");
+        }else {
+            System.out.println("删除文件");
+            file.delete();
+        }
+
+
+
+   }
+    @Test
+    public void test04() throws IOException {
+        //mkdir()不会创建上级没有的目录，mkdirs()会创建上级不存在的目录
+        File file = new File("E:\\io\\file1\\file4");
+        boolean mkdir1 = file.mkdir();
+        if(mkdir1){
+            System.out.println("文件1创建成功");
+        }else {
+            System.out.println("文件1创建失败");
+        }
+        File file2 = new File("E:\\io\\file2\\file3");
+        boolean mkdir2 = file2.mkdirs();
+        if(mkdir2){
+            System.out.println("文件2创建成功");
+        }
     }
 }
