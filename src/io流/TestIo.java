@@ -205,7 +205,30 @@ public class TestIo {
             e.printStackTrace();
         }
 
-
     }
 
+    /**
+     *  Buffered InputStream Out 图片复制
+     *  缓冲流加快读写速度的
+     *  只需要关闭外层的流即可
+     */
+    @Test
+    public void test11() {
+        String fis="E:\\io\\file2\\kobe.JPG";
+        String fws="E:\\io\\file2\\kobe1.JPG";
+        try (FileInputStream fileInputStream=new FileInputStream(fis);
+             FileOutputStream fileOutputStream=new FileOutputStream(fws);
+             BufferedInputStream bis=new BufferedInputStream(fileInputStream);
+             BufferedOutputStream bos=new BufferedOutputStream(fileOutputStream)
+        ){
+            byte[] bytes=new byte[5];
+            int data;
+            while ((data=bis.read(bytes))!=-1){
+                bos.write(bytes,0,data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
     }
