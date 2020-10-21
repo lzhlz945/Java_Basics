@@ -231,4 +231,29 @@ public class TestIo {
         }
 
     }
+
+    /**
+     *  Buffered Reader Out 文本复制
+     *  缓冲流加快读写速度的
+     *  只需要关闭外层的流即可
+     */
+    @Test
+    public void test12() {
+        String fis="E:\\io\\file2\\hello.txt";
+        String fws="E:\\io\\file2\\hello1.txt";
+        try (FileReader fileInputStream=new FileReader(fis);
+             FileWriter fileOutputStream=new FileWriter(fws);
+             BufferedReader bis=new BufferedReader(fileInputStream);
+             BufferedWriter bos=new BufferedWriter(fileOutputStream)
+        ){
+           String data;
+            while ((data=bis.readLine()) != null ){
+                bos.write(data);
+                bos.newLine();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
     }
