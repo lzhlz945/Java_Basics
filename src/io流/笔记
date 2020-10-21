@@ -1,0 +1,19 @@
+ 一、File
+ 1、file的三种有参构造方法
+        File file1 = new File("hello.txt");
+        File file2 = new File("E:\\io\\file2.txt");
+        File file3 = new File("E:\\io","io1");
+
+  2、File 的文件路径遍历和重命名
+  file2.list();和file2.listFiles();后者加载绝对路径
+  重命名，本地文件必须存在，磁盘绝对路径下的文件不存在
+
+  3、文件夹和文件的创建
+  创建文件，creatFile();
+  创建文件夹，没有上级目录用mkdirs();
+
+ 二、流IO
+  1、流的分类
+  操作数据单位：字节流(8byt)\字符流(16)
+  数据的流向：输入、输出
+  流的角色：节点流、处理流
