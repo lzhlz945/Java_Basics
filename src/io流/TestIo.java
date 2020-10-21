@@ -256,4 +256,58 @@ public class TestIo {
         }
 
     }
+    /**
+     *  图片复制加密
+     *  缓冲流加快读写速度的
+     *  只需要关闭外层的流即可
+     */
+    @Test
+    public void test13() {
+        String fis="E:\\io\\file2\\kobe.JPG";
+        String fws="E:\\io\\file2\\kobe1.JPG";
+        try (FileInputStream fileInputStream=new FileInputStream(fis);
+             FileOutputStream fileOutputStream=new FileOutputStream(fws);
+             BufferedInputStream bis=new BufferedInputStream(fileInputStream);
+             BufferedOutputStream bos=new BufferedOutputStream(fileOutputStream)
+        ){
+            byte[] bytes=new byte[5];
+            int data;
+            while ((data=bis.read(bytes))!=-1){
+                for (int i = 0; i < data; i++) {
+                    bytes[i]= (byte) (bytes[i]^5);
+                    bos.write(bytes[i]);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
+    /**
+     *  图片复制解密
+     *  缓冲流加快读写速度的
+     *  只需要关闭外层的流即可
+     */
+    @Test
+    public void test14() {
+        String fis="E:\\io\\file2\\kobe1.JPG";
+        String fws="E:\\io\\file2\\kobe2.JPG";
+        try (FileInputStream fileInputStream=new FileInputStream(fis);
+             FileOutputStream fileOutputStream=new FileOutputStream(fws);
+             BufferedInputStream bis=new BufferedInputStream(fileInputStream);
+             BufferedOutputStream bos=new BufferedOutputStream(fileOutputStream)
+        ){
+            byte[] bytes=new byte[5];
+            int data;
+            while ((data=bis.read(bytes))!=-1){
+                for (int i = 0; i < data; i++) {
+                    bytes[i]= (byte) (bytes[i]^5);
+                    bos.write(bytes[i]);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}
