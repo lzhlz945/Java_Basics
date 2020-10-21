@@ -310,4 +310,30 @@ public class TestIo {
         }
 
     }
+    /**
+     *  转换流InputStreamReader OutputStreamWriter
+     *  InputStreamReader 把字节流转换成字符流
+     *  OutputStreamWriter 把字符流转换成字节流
+     *
+     */
+    @Test
+    public void test15() {
+        String fis="E:\\io\\file2\\hello.txt";
+        String fws="E:\\io\\file2\\ssss.txt";
+        try (FileInputStream fileInputStream=new FileInputStream(fis);
+             FileOutputStream fileOutputStream=new FileOutputStream(fws);
+             InputStreamReader bis=new InputStreamReader(fileInputStream,"UTF-8");
+             OutputStreamWriter bos=new OutputStreamWriter(fileOutputStream,"GBK")
+
+        ){
+            char[] bytes=new char[5];
+            int data;
+            while ((data=bis.read(bytes))!=-1){
+              bos.write(bytes,0,data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 }
