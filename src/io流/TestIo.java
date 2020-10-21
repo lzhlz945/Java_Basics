@@ -2,10 +2,7 @@ package io流;
 
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 public class TestIo {
     /**
@@ -168,6 +165,7 @@ public class TestIo {
            }
 
        }
+       
     @Test
     public void test09() {
 
@@ -187,4 +185,27 @@ public class TestIo {
         }
 
     }
-}
+    /**
+     * FileInputStream 、outPutStream
+     * 处理纯文本可能出现乱码，一个汉字占3个字节
+     */
+    @Test
+    public void test10() {
+        String fis="E:\\io\\file2\\kobe.JPG";
+        String fws="E:\\io\\file2\\kobe1.JPG";
+        try (FileInputStream fileInputStream=new FileInputStream(fis);
+             FileOutputStream fileOutputStream=new FileOutputStream(fws)
+        ){
+           byte[] bytes=new byte[1028];
+           int data;
+            while ((data=fileInputStream.read(bytes))!=-1){
+                fileOutputStream.write(bytes,0,data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    }
