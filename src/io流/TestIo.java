@@ -3,6 +3,8 @@ package io流;
 import org.junit.Test;
 
 import java.io.*;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class TestIo {
     /**
@@ -332,6 +334,29 @@ public class TestIo {
               bos.write(bytes,0,data);
             }
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+    /**
+     * 网络
+     *C:\Windows\System32\drivers\etc\hosts 更改ip为指定域名的文件
+     * DNS域名服务解析器
+     *
+     */
+    @Test
+    public void test16(){
+        try {
+            InetAddress inetAddress=InetAddress.getByName("192.168.11.12");
+            System.out.println(inetAddress);
+
+            InetAddress byName = InetAddress.getByName("www.jd.com");
+            System.out.println(byName);
+
+            //获取本机
+            InetAddress localHost = InetAddress.getLocalHost();
+            System.out.println(localHost);
+        } catch (UnknownHostException e) {
             e.printStackTrace();
         }
 
