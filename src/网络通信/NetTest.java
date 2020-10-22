@@ -3,10 +3,7 @@ package 网络通信;
 import org.junit.Test;
 
 import java.io.*;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import java.net.*;
 
 /**
  * @author: create by zhl
@@ -214,6 +211,10 @@ public class NetTest {
      * 使用socket传输图片
      * 客服端收到反馈
      *
+     * TCP传输协议：
+     * 接受时用的 serverSocket().accept(); 在利用流来读写数据 加上一个ByteArrayOutputStream();
+     * 把字节存入这个流中防止中文乱码
+     *
      *在服务端写入数据时，因为close()是一个阻塞式的方法，客服端无法接受消息
      *
      */
@@ -251,8 +252,8 @@ public class NetTest {
     @Test
     public void server02() throws Exception{
         ServerSocket ss = new ServerSocket(9090);
-        Socket accept = ss.accept();
-        InputStream inputStream = accept.getInputStream();
+        Socket socket = ss.accept();
+        InputStream inputStream = socket.getInputStream();
         FileOutputStream fos=new FileOutputStream("E:\\Java_Basics\\src\\kobe2.jpg");
         BufferedOutputStream bufferedOutputStream=new BufferedOutputStream(fos);
         byte[] bytes= new byte[1024];
@@ -261,17 +262,50 @@ public class NetTest {
             bufferedOutputStream.write(bytes,0,data);
         }
 
-        OutputStream outputStream = accept.getOutputStream();
+        OutputStream outputStream = socket.getOutputStream();
 
         outputStream.write("我已经收到发的图片，很有纪念价值！！！".getBytes());
 
         outputStream.close();
         bufferedOutputStream.close();
         fos.close();
-        accept.close();
+        socket.close();
         ss.close();
 
 
+
+    }
+    /**
+     * UDP的网络通信协议：
+     *
+     * 用的socket是DatagramSocket() 接受和发送都是这样的
+     *  DatagramPacket来封装数据的 send()和receive()发送接受消息
+     *  DatagramPacket 获取数据方法 getData()、长度getLength();
+     *
+     */
+
+    @Test
+    public void send() throws  Exception{
+        DatagramSocket socket=new DatagramSocket();
+        String byt="hello";
+        byte[] bytes = byt.getBytes();
+        InetAddress localHost = InetAddress.getLocalHost();
+        DatagramPacket datagramPacket=new DatagramPacket(bytes,0,bytes.length,localHost,9090);
+        socket.send(datagramPacket);
+        socket.close();
+
+
+    }
+
+    @Test
+    public void res() throws Exception{
+        DatagramSocket socket=new DatagramSocket(9090);
+        byte[] bytes=new byte[100];
+        DatagramPacket packet=new DatagramPacket(bytes,0,100);
+        socket.receive(packet);
+
+        System.out.println(new String(packet.getData(),0,packet.getLength()));
+        socket.close();
 
     }
 
