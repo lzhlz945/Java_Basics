@@ -4,6 +4,8 @@ import org.junit.Test;
 
 import java.io.*;
 import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class TestIo {
@@ -382,4 +384,98 @@ public class TestIo {
      * 5、发送数据时无需释放资源，开销小，速度快。
      *发送短信，播放视频
      */
+
+    /**
+     * 网络数据传输利用socket
+     */
+    @Test
+    public void client(){
+
+        Socket socket=null;
+        OutputStream outputStream =null;
+        try {
+             InetAddress ip = InetAddress.getByName("127.0.0.1");
+             socket=new Socket(ip,8081);
+             outputStream = socket.getOutputStream();
+
+            outputStream.write("hello".getBytes());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if(outputStream !=null){
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(socket!=null){
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+
+    }
+
+    @Test
+    public void server(){
+        ByteArrayOutputStream byteArrayOutputStream= null;
+        ServerSocket ss=null;
+        Socket socket=null;
+        InputStream fis=null;
+        try {
+           ss = new ServerSocket(8081);
+           socket = ss.accept();
+           fis = socket.getInputStream();
+           byteArrayOutputStream = new ByteArrayOutputStream();
+            byte[] bytes=new byte[5];
+
+            while (fis.read(bytes)!=-1){
+                byteArrayOutputStream.write(bytes);
+
+
+            }
+            System.out.println(byteArrayOutputStream.toString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (byteArrayOutputStream!=null){
+                try {
+                    byteArrayOutputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(fis!=null){
+                try {
+                    fis.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(socket !=null){
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(ss !=null){
+                try {
+                    ss.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+
+
+    }
+
 }
