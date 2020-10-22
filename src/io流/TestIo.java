@@ -486,5 +486,48 @@ public class TestIo {
         }
     }
 
+    /**
+     * 使用socket传输图片
+     *
+     *
+     *
+     */
+    @Test
+    public void client01() throws Exception{
+
+        Socket socket = new Socket(InetAddress.getByName("127.0.0.1"), 9090);
+        OutputStream inputStream = socket.getOutputStream();
+        FileInputStream fileInputStream=new FileInputStream("E:\\Java_Basics\\src\\kobe.jpg");
+        BufferedInputStream buf=new BufferedInputStream(fileInputStream);
+        byte[] bytes=new byte[1024];
+        while (buf.read(bytes)!=-1){
+            inputStream.write(bytes);
+        }
+        buf.close();
+        fileInputStream.close();
+        inputStream.close();
+        socket.close();
+
+
+    }
+    @Test
+    public void server01() throws Exception{
+        ServerSocket ss = new ServerSocket(9090);
+        Socket accept = ss.accept();
+        InputStream inputStream = accept.getInputStream();
+        FileOutputStream fos=new FileOutputStream("E:\\Java_Basics\\src\\kobe1.jpg");
+        BufferedOutputStream bufferedOutputStream=new BufferedOutputStream(fos);
+        byte[] bytes= new byte[1024];
+        while (inputStream.read(bytes)!=-1){
+            bufferedOutputStream.write(bytes);
+        }
+        bufferedOutputStream.close();
+        fos.close();
+        accept.close();
+        ss.close();
+
+
+
+    }
 
 }
