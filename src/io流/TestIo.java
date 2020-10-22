@@ -387,6 +387,17 @@ public class TestIo {
 
     /**
      * 网络数据传输利用socket
+     * client:
+     * 1、创建socket对象
+     * 2、获取一个输出流，
+     * 3、写出输出数据
+     *
+     * server:
+     * 1、创建服务端的serverSocket
+     * 2、调用acsept()接受客服端的数据
+     * 3、创建流读取数据
+     * 4、利用ByteArrayOutputStream来把读取的数据存放过来，防止中文乱码、
+     *       一个汉字占3个字节
      */
     @Test
     public void client(){
@@ -395,10 +406,10 @@ public class TestIo {
         OutputStream outputStream =null;
         try {
              InetAddress ip = InetAddress.getByName("127.0.0.1");
-             socket=new Socket(ip,8081);
+             socket=new Socket(ip,8005);
              outputStream = socket.getOutputStream();
 
-            outputStream.write("hello".getBytes());
+            outputStream.write("123".getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -429,7 +440,7 @@ public class TestIo {
         Socket socket=null;
         InputStream fis=null;
         try {
-           ss = new ServerSocket(8081);
+           ss = new ServerSocket(8005);
            socket = ss.accept();
            fis = socket.getInputStream();
            byteArrayOutputStream = new ByteArrayOutputStream();
@@ -440,7 +451,7 @@ public class TestIo {
 
 
             }
-            System.out.println(byteArrayOutputStream.toString());
+            System.out.println(socket.getInetAddress().getHostName()+":" +byteArrayOutputStream.toString());
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -473,9 +484,7 @@ public class TestIo {
                 }
             }
         }
-
-
-
     }
+
 
 }
