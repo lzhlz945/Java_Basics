@@ -309,4 +309,77 @@ public class NetTest {
 
     }
 
+    /**
+     * test tcp
+     */
+
+    @Test
+    public void client03()throws Exception{
+        InetAddress ip = InetAddress.getLocalHost();
+
+        Socket socket = new Socket(ip, 9191);
+        OutputStream outputStream = socket.getOutputStream();
+        String str="我发送了你一条消息";
+        outputStream.write(str.getBytes());
+        socket.shutdownOutput();
+
+        InputStream inputStream = socket.getInputStream();
+        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+        byte[] bytes = new byte[1024];
+        int data;
+        while ((data=inputStream.read(bytes))!=-1){
+            byteArrayOutputStream.write(bytes,0,data);
+        }
+        System.out.println(byteArrayOutputStream.toString());
+        byteArrayOutputStream.close();
+        inputStream.close();
+        outputStream.close();
+        socket.close();
+    }
+    @Test
+    public void ser003()throws Exception{
+       ServerSocket ss=new ServerSocket(9191);
+        Socket socket = ss.accept();
+        InputStream inputStream = socket.getInputStream();
+        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+        byte[] bytes = new byte[1024];
+        int data;
+        while ((data=inputStream.read(bytes))!=-1){
+            byteArrayOutputStream.write(bytes,0,data);
+        }
+        System.out.println(byteArrayOutputStream.toString());
+        OutputStream outputStream = socket.getOutputStream();
+        String str="我已经接受到了你的消息！！！！";
+        outputStream.write(str.getBytes());
+        outputStream.close();
+        byteArrayOutputStream.close();
+        inputStream.close();
+        socket.close();
+        ss.close();
+    }
+
+    /**
+     * udp test
+     */
+    @Test
+    public void send1() throws Exception{
+        InetAddress ip = InetAddress.getLocalHost();
+        DatagramSocket socket=new DatagramSocket();
+        String str="我发送了一条消息";
+        DatagramPacket datagramPacket=new DatagramPacket(str.getBytes(),str.length(),ip,8181);
+        socket.send(datagramPacket);
+        socket.close();
+
+    }
+    @Test
+    public void send2() throws Exception{
+
+        DatagramSocket socket=new DatagramSocket(8181);
+        byte[] bytes=new byte[1024];
+        DatagramPacket datagramPacket=new DatagramPacket(bytes,0,1024);
+        socket.receive(datagramPacket);
+        System.out.println(new String(datagramPacket.getData(),0,datagramPacket.getLength()));
+        socket.close();
+
+    }
 }
