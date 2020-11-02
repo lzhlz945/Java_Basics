@@ -33,13 +33,13 @@ class MyHandler implements InvocationHandler{
 
     private Object obj;
 
-    public void bind(Object obj){
-        this.obj=obj;
+    public void bind(Object obj1){
+        this.obj=obj1;
     }
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-        Object obj = method.invoke(this.obj, args);
-        return obj;
+        Object obj2 = method.invoke(obj, args);
+        return obj2;
     }
 }
 

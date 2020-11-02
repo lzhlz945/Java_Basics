@@ -3,7 +3,7 @@ package 动态代理;
 /**
  * @author: create by zhl
  * @version: v1.0
- * @description: 动态代理
+ * @description: 静态代理
  * @date:2020/10/26
  */
 public class Test {
