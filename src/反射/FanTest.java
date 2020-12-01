@@ -67,6 +67,29 @@ public class FanTest {
      *
      *
      */
+    @Test
+    public void test03() throws Exception {
+        Class<Person1> persion1=Person1.class;
+        Constructor<Person1> constructor = persion1.getConstructor(String.class, Integer.class);
+        Person1 person1 = constructor.newInstance("zs",22);//相当于new一个对象
+        person1.setName("lis");
+
+        System.out.println(person1);
+        Constructor<Person1> declaredConstructor = persion1.getDeclaredConstructor(String.class);
+        declaredConstructor.setAccessible(true);
+        Person1 person11 = declaredConstructor.newInstance("zss");
+        Field name = persion1.getDeclaredField("name");
+        name.setAccessible(true);
+        name.set(person11,"sxd");
+
+        Method show = persion1.getDeclaredMethod("showP", String.class);
+        show.setAccessible(true);
+        String invoke = (String) show.invoke(person11, "12");
+        //System.out.println(invoke);
+        person11.show();
+        System.out.println(person11);
+
+    }
 
 
 }
