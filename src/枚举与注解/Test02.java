@@ -41,7 +41,15 @@ enum Session1{
         this.name=name;
         this.desc = desc;
     }
-//
+
+    @Override
+    public String toString() {
+        return "Session1{" +
+                "name='" + name + '\'' +
+                ", desc='" + desc + '\'' +
+                '}';
+    }
+    //
 //    public String getName() {
 //        return name;
 //    }
