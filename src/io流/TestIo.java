@@ -3,6 +3,10 @@ package io流;
 import org.junit.Test;
 
 import java.io.*;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class TestIo {
     /**
@@ -142,41 +146,41 @@ public class TestIo {
             e.printStackTrace();
         }
     }
-     /**
-      * FileReader、writer读写文件
-      *
-      */
-     @Test
-     public void test08() {
 
-           String fis="E:\\io\\file2\\hello.txt";
-           String fws="E:\\io\\file2\\hello1.txt";
-           try (FileReader fileReader = new FileReader(fis);
-                  FileWriter fileWriter = new FileWriter(fws) ){
-               System.out.println();
-               char[] chars=new char[1];
-               int len;
-               while ((len=fileReader.read(chars))!=-1){
-                   fileWriter.write(chars,0,len);
+    /**
+     * FileReader、writer读写文件
+     */
+    @Test
+    public void test08() {
 
-               }
-           } catch (Exception e) {
-               e.printStackTrace();
-           }
+        String fis = "E:\\io\\file2\\hello.txt";
+        String fws = "E:\\io\\file2\\hello1.txt";
+        try (FileReader fileReader = new FileReader(fis);
+             FileWriter fileWriter = new FileWriter(fws)) {
+            System.out.println();
+            char[] chars = new char[1];
+            int len;
+            while ((len = fileReader.read(chars)) != -1) {
+                fileWriter.write(chars, 0, len);
 
-       }
-       
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @Test
     public void test09() {
 
-        String fis="E:\\io\\file2\\hello.txt";
-        String fws="E:\\io\\file2\\hello1.txt";
+        String fis = "E:\\io\\file2\\hello.txt";
+        String fws = "E:\\io\\file2\\hello1.txt";
         try (FileReader fileReader = new FileReader(fis);
-             FileWriter fileWriter = new FileWriter(fws) ){
+             FileWriter fileWriter = new FileWriter(fws)) {
             System.out.println();
-            char[] chars=new char[5];
+            char[] chars = new char[5];
 
-            while ((fileReader.read(chars))!=-1){
+            while ((fileReader.read(chars)) != -1) {
                 fileWriter.write(chars);
 
             }
@@ -185,21 +189,22 @@ public class TestIo {
         }
 
     }
+
     /**
      * FileInputStream 、outPutStream
      * 处理纯文本可能出现乱码，一个汉字占3个字节
      */
     @Test
     public void test10() {
-        String fis="E:\\io\\file2\\kobe.JPG";
-        String fws="E:\\io\\file2\\kobe1.JPG";
-        try (FileInputStream fileInputStream=new FileInputStream(fis);
-             FileOutputStream fileOutputStream=new FileOutputStream(fws)
-        ){
-           byte[] bytes=new byte[1028];
-           int data;
-            while ((data=fileInputStream.read(bytes))!=-1){
-                fileOutputStream.write(bytes,0,data);
+        String fis = "E:\\io\\file2\\kobe.JPG";
+        String fws = "E:\\io\\file2\\kobe1.JPG";
+        try (FileInputStream fileInputStream = new FileInputStream(fis);
+             FileOutputStream fileOutputStream = new FileOutputStream(fws)
+        ) {
+            byte[] bytes = new byte[1028];
+            int data;
+            while ((data = fileInputStream.read(bytes)) != -1) {
+                fileOutputStream.write(bytes, 0, data);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -208,27 +213,134 @@ public class TestIo {
     }
 
     /**
-     *  Buffered InputStream Out 图片复制
-     *  缓冲流加快读写速度的
-     *  只需要关闭外层的流即可
+     * Buffered InputStream Out 图片复制
+     * 缓冲流加快读写速度的
+     * 只需要关闭外层的流即可
      */
     @Test
     public void test11() {
-        String fis="E:\\io\\file2\\kobe.JPG";
-        String fws="E:\\io\\file2\\kobe1.JPG";
-        try (FileInputStream fileInputStream=new FileInputStream(fis);
-             FileOutputStream fileOutputStream=new FileOutputStream(fws);
-             BufferedInputStream bis=new BufferedInputStream(fileInputStream);
-             BufferedOutputStream bos=new BufferedOutputStream(fileOutputStream)
-        ){
-            byte[] bytes=new byte[5];
+        String fis = "E:\\io\\file2\\kobe.JPG";
+        String fws = "E:\\io\\file2\\kobe1.JPG";
+        try (FileInputStream fileInputStream = new FileInputStream(fis);
+             FileOutputStream fileOutputStream = new FileOutputStream(fws);
+             BufferedInputStream bis = new BufferedInputStream(fileInputStream);
+             BufferedOutputStream bos = new BufferedOutputStream(fileOutputStream)
+        ) {
+            byte[] bytes = new byte[5];
             int data;
-            while ((data=bis.read(bytes))!=-1){
-                bos.write(bytes,0,data);
+            while ((data = bis.read(bytes)) != -1) {
+                bos.write(bytes, 0, data);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
+
+    /**
+     * Buffered Reader Out 文本复制
+     * 缓冲流加快读写速度的
+     * 只需要关闭外层的流即可
+     */
+    @Test
+    public void test12() {
+        String fis = "E:\\io\\file2\\hello.txt";
+        String fws = "E:\\io\\file2\\hello1.txt";
+        try (FileReader fileInputStream = new FileReader(fis);
+             FileWriter fileOutputStream = new FileWriter(fws);
+             BufferedReader bis = new BufferedReader(fileInputStream);
+             BufferedWriter bos = new BufferedWriter(fileOutputStream)
+        ) {
+            String data;
+            while ((data = bis.readLine()) != null) {
+                bos.write(data);
+                bos.newLine();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
+
+    /**
+     * 图片复制加密
+     * 缓冲流加快读写速度的
+     * 只需要关闭外层的流即可
+     */
+    @Test
+    public void test13() {
+        String fis = "E:\\io\\file2\\kobe.JPG";
+        String fws = "E:\\io\\file2\\kobe1.JPG";
+        try (FileInputStream fileInputStream = new FileInputStream(fis);
+             FileOutputStream fileOutputStream = new FileOutputStream(fws);
+             BufferedInputStream bis = new BufferedInputStream(fileInputStream);
+             BufferedOutputStream bos = new BufferedOutputStream(fileOutputStream)
+        ) {
+            byte[] bytes = new byte[5];
+            int data;
+            while ((data = bis.read(bytes)) != -1) {
+                for (int i = 0; i < data; i++) {
+                    bytes[i] = (byte) (bytes[i] ^ 5);
+                    bos.write(bytes[i]);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * 图片复制解密
+     * 缓冲流加快读写速度的
+     * 只需要关闭外层的流即可
+     */
+    @Test
+    public void test14() {
+        String fis = "E:\\io\\file2\\kobe1.JPG";
+        String fws = "E:\\io\\file2\\kobe2.JPG";
+        try (FileInputStream fileInputStream = new FileInputStream(fis);
+             FileOutputStream fileOutputStream = new FileOutputStream(fws);
+             BufferedInputStream bis = new BufferedInputStream(fileInputStream);
+             BufferedOutputStream bos = new BufferedOutputStream(fileOutputStream)
+        ) {
+            byte[] bytes = new byte[5];
+            int data;
+            while ((data = bis.read(bytes)) != -1) {
+                for (int i = 0; i < data; i++) {
+                    bytes[i] = (byte) (bytes[i] ^ 5);
+                    bos.write(bytes[i]);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    /**
+     * 转换流InputStreamReader OutputStreamWriter
+     * InputStreamReader 把字节流转换成字符流
+     * OutputStreamWriter 把字符流转换成字节流
+     */
+    @Test
+    public void test15() {
+        String fis = "E:\\io\\file2\\hello.txt";
+        String fws = "E:\\io\\file2\\ssss.txt";
+        try (FileInputStream fileInputStream = new FileInputStream(fis);
+             FileOutputStream fileOutputStream = new FileOutputStream(fws);
+             InputStreamReader bis = new InputStreamReader(fileInputStream, "UTF-8");
+             OutputStreamWriter bos = new OutputStreamWriter(fileOutputStream, "GBK")
+
+        ) {
+            char[] bytes = new char[5];
+            int data;
+            while ((data = bis.read(bytes)) != -1) {
+                bos.write(bytes, 0, data);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}
